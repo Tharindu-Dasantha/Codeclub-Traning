@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎨 CSS Studio Playground — Code Club Sri Lanka</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: #0f172a;
+            color: #f8fafc;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* Top Bar Header */
+        header {
+            background-color: #1e293b;
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #334155;
+        }
+        .logo-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 18px;
+            font-weight: 700;
+            color: #0284c7;
+        }
+        .logo-badge {
+            background-color: #0284c7;
+            color: white;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .preset-select, .btn-action {
+            background-color: #334155;
+            color: white;
+            border: 1px solid #475569;
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-size: 13px;
+            cursor: pointer;
+            outline: none;
+            transition: all 0.2s;
+        }
+        .preset-select:hover, .btn-action:hover {
+            background-color: #475569;
+        }
+        .btn-primary {
+            background-color: #0284c7;
+            border-color: #0369a1;
+            font-weight: 600;
+        }
+        .btn-primary:hover {
+            background-color: #0369a1;
+        }
+
+        /* Playground Layout */
+        .workspace {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        /* Code Editors Container */
+        .editor-container {
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+            border-right: 1px solid #334155;
+            background-color: #0f172a;
+        }
+
+        /* Editor Tabs */
+        .tab-bar {
+            display: flex;
+            background-color: #1e293b;
+            border-bottom: 1px solid #334155;
+        }
+        .tab-btn {
+            padding: 10px 20px;
+            background: none;
+            border: none;
+            color: #94a3b8;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .tab-btn.active {
+            color: #38bdf8;
+            border-bottom-color: #38bdf8;
+            background-color: #0f172a;
+        }
+
+        /* Textarea Editors */
+        .editor-pane {
+            flex: 1;
+            display: none;
+            position: relative;
+        }
+        .editor-pane.active {
+            display: flex;
+        }
+
+        textarea {
+            width: 100%;
+            height: 100%;
+            background-color: #0f172a;
+            color: #e2e8f0;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.5;
+            padding: 15px;
+            border: none;
+            resize: none;
+            outline: none;
+        }
+
+        /* Preview Window */
+        .preview-container {
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+            background-color: #ffffff;
+        }
+
+        .preview-header {
+            background-color: #f1f5f9;
+            padding: 8px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #cbd5e1;
+            color: #334155;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .dot-controls {
+            display: flex;
+            gap: 6px;
+        }
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+        .dot-red { background-color: #ef4444; }
+        .dot-yellow { background-color: #f59e0b; }
+        .dot-green { background-color: #10b981; }
+
+        iframe {
+            width: 100%;
+            flex: 1;
+            border: none;
+            background-color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Header -->
+    <header>
+        <div class="logo-title">
+            <span>🎨 CSS Studio Playground</span>
+            <span class="logo-badge">Code Club Sri Lanka</span>
+        </div>
+
+        <div class="actions">
+            <!-- Preset selector -->
+            <select class="preset-select" id="presetSelect" onchange="loadPreset()">
+                <option value="card">Preset: Explorer Profile Card</option>
+                <option value="colors">Preset: Sri Lanka Color Palette</option>
+                <option value="hover">Preset: Interactive Hover Buttons</option>
+                <option value="blank">Preset: Clean Starter Template</option>
+            </select>
+
+            <button class="btn-action" onclick="resetCode()">🔄 Reset</button>
+        </div>
+    </header>
+
+    <!-- Main Workspace Split Pane -->
+    <div class="workspace">
+        
+        <!-- Left: Code Editors -->
+        <div class="editor-container">
+            <div class="tab-bar">
+                <button class="tab-btn active" onclick="switchTab('htmlTab', this)">
+                    <span>🦴</span> HTML Code
+                </button>
+                <button class="tab-btn" onclick="switchTab('cssTab', this)">
+                    <span>🎨</span> CSS Style Code
+                </button>
+            </div>
+
+            <!-- HTML Editor Pane -->
+            <div class="editor-pane active" id="htmlTab">
+                <textarea id="htmlCode" placeholder="Write your HTML here..." oninput="updatePreview()"></textarea>
+            </div>
+
+            <!-- CSS Editor Pane -->
+            <div class="editor-pane" id="cssTab">
+                <textarea id="cssCode" placeholder="Write your CSS styles here..." oninput="updatePreview()"></textarea>
+            </div>
+        </div>
+
+        <!-- Right: Live Render Preview -->
+        <div class="preview-container">
+            <div class="preview-header">
+                <div class="dot-controls">
+                    <span class="dot dot-red"></span>
+                    <span class="dot dot-yellow"></span>
+                    <span class="dot dot-green"></span>
+                </div>
+                <span>⚡ Real-Time Live Web View</span>
+                <span>Chrome Preview</span>
+            </div>
+            <iframe id="previewFrame"></iframe>
+        </div>
+
+    </div>
+
+    <!-- Playground Script -->
+    <script>
+        const presets = {
+            card: {
+                html: `<!DOCTYPE html>
+<html>
+<head>
+    <title>My Explorer Card</title>
+</head>
+<body>
+
+    <div class="card">
+        <img src="https://images.unsplash.com/photo-1544717305-2782549b5136?w=200" class="avatar" alt="Kasun">
+        <h1>Ayubowan! I am Kasun</h1>
+        <p class="role">Sri Lanka Code Club Explorer 🇱🇰</p>
+        
+        <p>I love learning web design, building apps, and traveling to Sigiriya and Ella!</p>
+        
+        <div class="badges">
+            <span class="badge">HTML</span>
+            <span class="badge">CSS</span>
+            <span class="badge">Code Club</span>
+        </div>
+
+        <a href="#" class="btn">Explore My Projects 🚀</a>
+    </div>
+
+</body>
+</html>`,
+                css: `/* CSS Styling Code */
+
+body {
+    background-color: #0f172a;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+.card {
+    background-color: #1e293b;
+    color: #f8fafc;
+    width: 320px;
+    padding: 30px 24px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    border: 1px solid #334155;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 35px rgba(2, 132, 199, 0.3);
+    border-color: #0284c7;
+}
+
+.avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 4px solid #0284c7;
+    margin-bottom: 15px;
+    object-fit: cover;
+}
+
+h1 {
+    font-size: 22px;
+    color: #0284c7;
+    margin: 0 0 5px 0;
+}
+
+.role {
+    color: #94a3b8;
+    font-size: 14px;
+    margin-bottom: 15px;
+}
+
+.badges {
+    margin: 20px 0;
+}
+
+.badge {
+    background-color: rgba(2, 132, 199, 0.2);
+    color: #38bdf8;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+    margin: 0 4px;
+}
+
+.btn {
+    display: inline-block;
+    background-color: #0284c7;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: 600;
+    margin-top: 10px;
+    transition: all 0.2s ease;
+}
+
+.btn:hover {
+    background-color: #0369a1;
+    transform: scale(1.05);
+}`
+            },
+            colors: {
+                html: `<!DOCTYPE html>
+<html>
+<body>
+    <div class="container">
+        <h2>🇱🇰 Sri Lankan Color Palette Magic</h2>
+        <div class="swatch s-gold">Lion Gold #f59e0b</div>
+        <div class="swatch s-blue">Ocean Blue #0284c7</div>
+        <div class="swatch s-green">Tea Green #10b981</div>
+        <div class="swatch s-pink">Bougainvillea Pink #ec4899</div>
+    </div>
+</body>
+</html>`,
+                css: `body {
+    background-color: #f8fafc;
+    font-family: sans-serif;
+    padding: 20px;
+}
+.container {
+    max-width: 400px;
+    margin: 0 auto;
+}
+.swatch {
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 12px;
+    color: white;
+    font-weight: bold;
+}
+.s-gold { background-color: #f59e0b; }
+.s-blue { background-color: #0284c7; }
+.s-green { background-color: #10b981; }
+.s-pink { background-color: #ec4899; }`
+            },
+            hover: {
+                html: `<!DOCTYPE html>
+<html>
+<body>
+    <div class="box">
+        <h2>Interactive Hover Magic!</h2>
+        <p>Hover your mouse over the button below:</p>
+        <button class="magic-btn">Hover Over Me! ✨</button>
+    </div>
+</body>
+</html>`,
+                css: `body {
+    background-color: #0f172a;
+    color: white;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    padding: 40px;
+}
+.box {
+    text-align: center;
+}
+.magic-btn {
+    background-color: #10b981;
+    color: white;
+    font-size: 18px;
+    padding: 14px 28px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+}
+.magic-btn:hover {
+    background-color: #059669;
+    transform: scale(1.1) rotate(-2deg);
+    box-shadow: 0 8px 25px rgba(16, 185, 129, 0.7);
+}`
+            },
+            blank: {
+                html: `<!DOCTYPE html>
+<html>
+<head>
+    <title>My Webpage</title>
+</head>
+<body>
+    <h1>Ayubowan World!</h1>
+    <p>Start typing your HTML and CSS here!</p>
+</body>
+</html>`,
+                css: `/* Add your CSS rules here */
+body {
+    background-color: #f1f5f9;
+    color: #1e293b;
+    font-family: Arial, sans-serif;
+    padding: 20px;
+}
+
+h1 {
+    color: #0284c7;
+}`
+            }
+        };
+
+        function switchTab(paneId, btn) {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.editor-pane').forEach(p => p.classList.remove('active'));
+            
+            btn.classList.add('active');
+            document.getElementById(paneId).classList.add('active');
+        }
+
+        function updatePreview() {
+            const html = document.getElementById('htmlCode').value;
+            const css = document.getElementById('cssCode').value;
+
+            const combinedCode = `
+                ${html}
+                <style>
+                    ${css}
+                </style>
+            `;
+
+            const frame = document.getElementById('previewFrame');
+            const doc = frame.contentDocument || frame.contentWindow.document;
+            doc.open();
+            doc.write(combinedCode);
+            doc.close();
+        }
+
+        function loadPreset() {
+            const selected = document.getElementById('presetSelect').value;
+            if (presets[selected]) {
+                document.getElementById('htmlCode').value = presets[selected].html;
+                document.getElementById('cssCode').value = presets[selected].css;
+                updatePreview();
+            }
+        }
+
+        function resetCode() {
+            loadPreset();
+        }
+
+        // Initialize with default preset
+        loadPreset();
+    </script>
+</body>
+</html>
