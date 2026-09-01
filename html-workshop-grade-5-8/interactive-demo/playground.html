@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Club HTML Interactive Playground 🇱🇰</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Outfit:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0d9488;
+            --primary-dark: #0f766e;
+            --accent: #f59e0b;
+            --bg-dark: #0f172a;
+            --bg-editor: #1e293b;
+            --border: #334155;
+            --text-light: #f8fafc;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* Top Header Bar */
+        header {
+            background-color: #0b1120;
+            padding: 0.75rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .brand-logo {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: #ffffff;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            font-size: 1.1rem;
+            padding: 0.3rem 0.75rem;
+            border-radius: 8px;
+        }
+
+        .brand-title {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            font-size: 1.15rem;
+        }
+
+        .controls {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            background-color: var(--border);
+            color: #ffffff;
+            border: none;
+            padding: 0.45rem 0.9rem;
+            border-radius: 6px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .btn:hover {
+            background-color: #475569;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .btn-accent {
+            background-color: var(--accent);
+            color: #0f172a;
+        }
+
+        .btn-accent:hover {
+            background-color: #d97706;
+            color: #ffffff;
+        }
+
+        /* Toolbar Tags helper */
+        .toolbar {
+            background-color: #182234;
+            padding: 0.5rem 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            border-bottom: 1px solid var(--border);
+            overflow-x: auto;
+        }
+
+        .toolbar-label {
+            font-size: 0.8rem;
+            color: #94a3b8;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .tag-btn {
+            background-color: #24334a;
+            color: #38bdf8;
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            font-family: 'Fira Code', monospace;
+            font-size: 0.78rem;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .tag-btn:hover {
+            background-color: #38bdf8;
+            color: #0f172a;
+        }
+
+        /* Split Workspace Area */
+        .workspace {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        .pane {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .pane-header {
+            background-color: #0f172a;
+            padding: 0.5rem 1rem;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #94a3b8;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .divider {
+            width: 4px;
+            background-color: var(--border);
+            cursor: col-resize;
+        }
+
+        textarea#code-input {
+            flex: 1;
+            background-color: var(--bg-editor);
+            color: #f1f5f9;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            padding: 1.25rem;
+            border: none;
+            outline: none;
+            resize: none;
+            white-space: pre;
+            tab-size: 4;
+        }
+
+        iframe#preview-frame {
+            flex: 1;
+            background-color: #ffffff;
+            border: none;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Status Toast */
+        .toast {
+            position: fixed;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            background-color: var(--primary);
+            color: #ffffff;
+            padding: 0.75rem 1.25rem;
+            border-radius: 8px;
+            font-weight: 600;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (max-width: 768px) {
+            .workspace {
+                flex-direction: column;
+            }
+            .divider {
+                height: 4px;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="brand">
+            <div class="brand-logo">Code Club 🇱🇰</div>
+            <div class="brand-title">HTML Live Playground</div>
+        </div>
+        <div class="controls">
+            <button class="btn btn-accent" onclick="loadBugHunt()">🕵️ Load Bug Hunt</button>
+            <button class="btn" onclick="resetStarter()">🔄 Reset Starter</button>
+            <button class="btn btn-primary" onclick="downloadHTML()">💾 Download mypage.html</button>
+        </div>
+    </header>
+
+    <!-- Quick Insertion Tags Toolbar -->
+    <div class="toolbar">
+        <span class="toolbar-label">Quick Tag Insert:</span>
+        <button class="tag-btn" onclick="insertTag('<h1>', '</h1>')">&lt;h1&gt;</button>
+        <button class="tag-btn" onclick="insertTag('<h2>', '</h2>')">&lt;h2&gt;</button>
+        <button class="tag-btn" onclick="insertTag('<p>', '</p>')">&lt;p&gt;</button>
+        <button class="tag-btn" onclick="insertTag('<b>', '</b>')">&lt;b&gt;</button>
+        <button class="tag-btn" onclick="insertTag('<i>', '</i>')">&lt;i&gt;</button>
+        <button class="tag-btn" onclick="insertTag('<mark>', '</mark>')">&lt;mark&gt;</button>
+        <button class="tag-btn" onclick="insertTag('<ul>\n  <li>', '</li>\n</ul>')">&lt;ul&gt;</button>
+        <button class="tag-btn" onclick="insertTag('<ol>\n  <li>', '</li>\n</ol>')">&lt;ol&gt;</button>
+        <button class="tag-btn" onclick="insertTag('<img src=\'https://images.unsplash.com/photo-1546708973-b339540b5162?w=400\' alt=\'Elephant\' width=\'300\'>', '')">&lt;img&gt;</button>
+        <button class="tag-btn" onclick="insertTag('<a href=\'https://www.codeclub.lk\' target=\'_blank\'>', '</a>')">&lt;a&gt;</button>
+        <button class="tag-btn" onclick="insertTag('<hr>', '')">&lt;hr&gt;</button>
+    </div>
+
+    <!-- Workspace -->
+    <div class="workspace">
+        <!-- Code Editor Pane -->
+        <div class="pane">
+            <div class="pane-header">
+                <span>💻 HTML Editor</span>
+                <span id="char-count">0 chars</span>
+            </div>
+            <textarea id="code-input" spellcheck="false" placeholder="Type HTML code here..."></textarea>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- Live Preview Pane -->
+        <div class="pane">
+            <div class="pane-header">
+                <span>🌐 Live Webpage View</span>
+                <span>Real-time</span>
+            </div>
+            <iframe id="preview-frame"></iframe>
+        </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="toast" class="toast">Downloaded index.html successfully!</div>
+
+    <script>
+        const starterCode = `<!DOCTYPE html>
+<html>
+<head>
+    <title>My Sri Lanka Webpage</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; line-height: 1.6; color: #1e293b; }
+        h1 { color: #0d9488; }
+        h2 { color: #d97706; margin-top: 20px; }
+        mark { background-color: #fef3c7; color: #92400e; }
+        img { border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+    </style>
+</head>
+<body>
+
+    <h1>Ayubowan! Welcome to My Webpage 🇱🇰</h1>
+    <p>My name is <b>Kasun</b> and I am building my first webpage in <i>Grade 6</i> at Code Club!</p>
+
+    <hr>
+
+    <h2>My Favorite Sri Lankan Foods</h2>
+    <ul>
+        <li>Kottu Roti</li>
+        <li>Egg Hoppers</li>
+        <li>Pol Roti with Lunu Miris</li>
+    </ul>
+
+    <hr>
+
+    <h2>Sri Lanka Wildlife Photo</h2>
+    <img src="https://images.unsplash.com/photo-1546708973-b339540b5162?w=500" alt="Elephant in Sri Lanka" width="300">
+
+    <hr>
+
+    <p>Visit <a href="https://www.codeclub.lk" target="_blank">Code Club Sri Lanka</a> to learn more!</p>
+
+</body>
+</html>`;
+
+        const bugHuntCode = `<!DOCTYPE html>
+<html>
+<head>
+    <title>Bug Hunt Challenge</title>
+</head>
+<body>
+
+    <!-- CAN YOU FIX THE 5 BUGS IN THIS CODE? -->
+
+    <h1 Welcome to Sri Lanka Wildlife</h1>
+    
+    <p>Sri Lanka is home to majestic elephants and leopards.</p
+    
+    <img scr="https://images.unsplash.com/photo-1546708973-b339540b5162?w=400" alt="Elephant">
+    
+    <p>I love watching <b>cricket matches on TV!</p>
+    
+    <p>Visit <a href=https://www.codeclub.lk>Code Club</a> to learn more.</p>
+
+</body>
+</html>`;
+
+        const editor = document.getElementById('code-input');
+        const iframe = document.getElementById('preview-frame');
+        const charCount = document.getElementById('char-count');
+
+        function updatePreview() {
+            const code = editor.value;
+            charCount.textContent = `${code.length} chars`;
+            const doc = iframe.contentDocument || iframe.contentWindow.document;
+            doc.open();
+            doc.write(code);
+            doc.close();
+        }
+
+        function insertTag(openTag, closeTag) {
+            const start = editor.selectionStart;
+            const end = editor.selectionEnd;
+            const selectedText = editor.value.substring(start, end);
+            const replacement = openTag + selectedText + closeTag;
+            
+            editor.value = editor.value.substring(0, start) + replacement + editor.value.substring(end);
+            editor.focus();
+            editor.selectionStart = start + openTag.length;
+            editor.selectionEnd = start + openTag.length + selectedText.length;
+            updatePreview();
+        }
+
+        function resetStarter() {
+            editor.value = starterCode;
+            updatePreview();
+            showToast("Reset to Starter Template!");
+        }
+
+        function loadBugHunt() {
+            editor.value = bugHuntCode;
+            updatePreview();
+            showToast("Bug Hunt Challenge Loaded! Find the 5 bugs!");
+        }
+
+        function downloadHTML() {
+            const blob = new Blob([editor.value], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'myfirstpage.html';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            showToast("Downloaded myfirstpage.html!");
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            toast.textContent = msg;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+
+        editor.addEventListener('input', updatePreview);
+
+        // Allow Tab key inside textarea
+        editor.addEventListener('keydown', (e) => {
+            if (e.key === 'Tab') {
+                e.preventDefault();
+                insertTag('    ', '');
+            }
+        });
+
+        // Initialize with starter code
+        resetStarter();
+    </script>
+</body>
+</html>
