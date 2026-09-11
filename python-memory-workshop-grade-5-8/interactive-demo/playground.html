@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Python Playground - Code Club</title>
+<script src="https://cdn.jsdelivr.net/pyodide/v0.26.4/full/pyodide.js"></script>
+<style>
+    * { box-sizing: border-box; }
+    body {
+        margin: 0;
+        font-family: 'Segoe UI', Arial, sans-serif;
+        background: #0f172a;
+        color: #e2e8f0;
+    }
+    header {
+        background: #1e293b;
+        padding: 16px 20px;
+        border-bottom: 3px solid #10b981;
+    }
+    header h1 {
+        margin: 0;
+        font-size: 20px;
+        color: #f8fafc;
+    }
+    header p {
+        margin: 4px 0 0;
+        font-size: 13px;
+        color: #94a3b8;
+    }
+    .layout {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+        padding: 16px;
+    }
+    .panel {
+        flex: 1 1 380px;
+        display: flex;
+        flex-direction: column;
+        min-width: 300px;
+    }
+    .panel-title {
+        font-size: 13px;
+        font-weight: bold;
+        color: #34d399;
+        margin-bottom: 6px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    textarea, #output {
+        width: 100%;
+        border-radius: 8px;
+        border: 1px solid #334155;
+        padding: 12px;
+        font-family: 'Consolas', 'Courier New', monospace;
+        font-size: 14px;
+        background: #020617;
+        color: #e2e8f0;
+        resize: vertical;
+    }
+    #code { height: 340px; }
+    #inputs { height: 90px; }
+    #output {
+        height: 340px;
+        overflow-y: auto;
+        white-space: pre-wrap;
+        margin: 0;
+    }
+    .btn-row {
+        display: flex;
+        gap: 10px;
+        margin-top: 10px;
+    }
+    button {
+        background: #10b981;
+        color: #04120c;
+        border: none;
+        padding: 10px 18px;
+        border-radius: 25px;
+        font-size: 14px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background 0.2s ease, transform 0.2s ease;
+    }
+    button:hover { background: #059669; transform: translateY(-2px); }
+    button.secondary { background: #475569; color: white; }
+    button.secondary:hover { background: #334155; }
+    #status {
+        font-size: 13px;
+        color: #facc15;
+        margin-top: 8px;
+        min-height: 18px;
+    }
+    .hint {
+        background: #1e293b;
+        border-left: 4px solid #f59e0b;
+        padding: 10px 14px;
+        margin: 0 16px 16px;
+        border-radius: 6px;
+        font-size: 13px;
+        color: #cbd5e1;
+    }
+    code { color: #fbbf24; }
+</style>
+</head>
+<body>
+
+<header>
+    <h1>🗂️ Python Playground — Code Club (Lists, Functions & Files)</h1>
+    <p>Write Python, run it instantly in your browser. Great for quick practice with lists, dictionaries and functions!</p>
+</header>
+
+<div class="hint">
+    💡 <strong>How input() works here:</strong> type the answers you want your program to "receive" into the <strong>Simulated Inputs</strong> box below (one per line, in order). Each line is fed to the next <code>input()</code> call automatically.
+    <br>📁 <strong>About file saving in this playground:</strong> file I/O (<code>open()</code>, <code>.write()</code>) works here, but files live in a temporary browser sandbox that <strong>resets every time you reload the page</strong> — they do NOT persist like real files. To see your high score really saved forever, build and run <code>quiz_game.py</code> in <strong>Thonny</strong> on your computer!
+    <br>⚠️ This page needs an internet connection the <strong>first</strong> time it loads (to download the Python engine). After that it works from the browser cache.
+</div>
+
+<div class="layout">
+    <div class="panel">
+        <div class="panel-title">📝 Your Code</div>
+        <textarea id="code" spellcheck="false">questions = [
+    {"question": "Capital of Sri Lanka?", "answer": "sri jayawardenepura kotte"},
+    {"question": "National animal of Sri Lanka?", "answer": "elephant"},
+]
+
+def ask_question(question_dict):
+    print(question_dict["question"])
+    player_answer = input("Your answer: ")
+    if player_answer.lower() == question_dict["answer"]:
+        print("Correct!")
+        return 1
+    else:
+        print(f"Wrong! The answer was {question_dict['answer']}.")
+        return 0
+
+score = 0
+for q in questions:
+    score = score + ask_question(q)
+
+print(f"Final score: {score} out of {len(questions)}")
+
+# Try saving and re-reading a file (resets on page reload!)
+with open("high_score.txt", "w") as file:
+    file.write(str(score))
+
+with open("high_score.txt", "r") as file:
+    print("Saved score was:", file.read())</textarea>
+
+        <div class="panel-title" style="margin-top:14px;">⌨️ Simulated Inputs (one per line)</div>
+        <textarea id="inputs" spellcheck="false">Sri Jayawardenepura Kotte
+elephant</textarea>
+
+        <div class="btn-row">
+            <button onclick="runCode()">▶ Run Code</button>
+            <button class="secondary" onclick="clearOutput()">🧹 Clear Output</button>
+        </div>
+        <div id="status">Ready — click "Run Code" to start!</div>
+    </div>
+
+    <div class="panel">
+        <div class="panel-title">🖥️ Output</div>
+        <pre id="output"></pre>
+    </div>
+</div>
+
+<script>
+let pyodideReadyPromise = null;
+
+async function getPyodide() {
+    if (!pyodideReadyPromise) {
+        setStatus("⏳ Loading Python engine (first time only, needs internet)...");
+        pyodideReadyPromise = loadPyodide();
+    }
+    return pyodideReadyPromise;
+}
+
+function setStatus(msg) {
+    document.getElementById('status').textContent = msg;
+}
+
+function clearOutput() {
+    document.getElementById('output').textContent = '';
+    setStatus('Ready!');
+}
+
+async function runCode() {
+    const code = document.getElementById('code').value;
+    const inputsRaw = document.getElementById('inputs').value;
+    const inputs = inputsRaw.split('\n');
+    const outputEl = document.getElementById('output');
+    outputEl.textContent = '';
+
+    try {
+        const pyodide = await getPyodide();
+        setStatus('▶️ Running...');
+
+        pyodide.setStdout({ batched: (msg) => { outputEl.textContent += msg + '\n'; } });
+        pyodide.setStderr({ batched: (msg) => { outputEl.textContent += msg + '\n'; } });
+
+        pyodide.globals.set('__inputs__', pyodide.toPy(inputs));
+
+        await pyodide.runPythonAsync(`
+import builtins
+__input_index = 0
+def __custom_input(prompt=''):
+    global __input_index
+    if prompt:
+        print(prompt, end='')
+    if __input_index < len(__inputs__):
+        value = __inputs__[__input_index]
+        __input_index += 1
+    else:
+        value = ''
+    print(value)
+    return value
+builtins.input = __custom_input
+`);
+
+        await pyodide.runPythonAsync(code);
+        setStatus('✅ Done!');
+    } catch (err) {
+        outputEl.textContent += '\n❌ Error:\n' + err;
+        setStatus('❌ Something went wrong — check the output panel.');
+    }
+}
+</script>
+
+</body>
+</html>
