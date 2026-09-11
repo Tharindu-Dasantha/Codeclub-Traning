@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Online Safety Quiz - Code Club</title>
+<style>
+    * { box-sizing: border-box; }
+    body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: 'Segoe UI', Arial, sans-serif;
+        background: linear-gradient(160deg, #0f172a 0%, #101c33 100%);
+        color: #e2e8f0;
+        display: flex;
+        justify-content: center;
+        padding: 24px 16px;
+    }
+    .app {
+        width: 100%;
+        max-width: 720px;
+    }
+    header {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    header h1 {
+        margin: 0 0 6px;
+        font-size: 26px;
+        color: #f8fafc;
+    }
+    header p {
+        margin: 0;
+        color: #94a3b8;
+        font-size: 14px;
+    }
+    .progress-wrap {
+        background: #1e293b;
+        border-radius: 20px;
+        height: 12px;
+        overflow: hidden;
+        margin: 18px 0;
+    }
+    .progress-bar {
+        height: 100%;
+        background: linear-gradient(90deg, #10b981, #0ea5e9);
+        width: 0%;
+        transition: width 0.35s ease;
+    }
+    .score-line {
+        display: flex;
+        justify-content: space-between;
+        font-size: 13px;
+        color: #94a3b8;
+        margin-bottom: 4px;
+    }
+    .card {
+        background: #16213a;
+        border: 1px solid #263355;
+        border-radius: 16px;
+        padding: 24px;
+        box-shadow: 0 12px 30px rgba(0,0,0,0.35);
+    }
+    .badge {
+        display: inline-block;
+        background: #0ea5e9;
+        color: #041322;
+        font-size: 11px;
+        font-weight: bold;
+        padding: 4px 10px;
+        border-radius: 12px;
+        margin-bottom: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    .question-text {
+        font-size: 19px;
+        line-height: 1.5;
+        color: #f1f5f9;
+        margin: 0 0 18px;
+        white-space: pre-wrap;
+    }
+    .choices {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+    .choice-btn {
+        text-align: left;
+        background: #1e293b;
+        border: 2px solid #334155;
+        color: #e2e8f0;
+        padding: 14px 16px;
+        border-radius: 10px;
+        font-size: 15px;
+        cursor: pointer;
+        transition: border-color 0.2s ease, transform 0.15s ease, background 0.2s ease;
+    }
+    .choice-btn:hover:not(:disabled) {
+        border-color: #0ea5e9;
+        transform: translateX(4px);
+    }
+    .choice-btn:disabled { cursor: default; }
+    .choice-btn.correct {
+        background: rgba(16, 185, 129, 0.18);
+        border-color: #10b981;
+    }
+    .choice-btn.wrong {
+        background: rgba(239, 68, 68, 0.18);
+        border-color: #ef4444;
+    }
+    .explanation {
+        margin-top: 18px;
+        padding: 14px 16px;
+        border-radius: 10px;
+        background: #0b1526;
+        border-left: 4px solid #0ea5e9;
+        font-size: 14px;
+        line-height: 1.6;
+        color: #cbd5e1;
+        display: none;
+    }
+    .explanation.show { display: block; }
+    .next-row {
+        margin-top: 20px;
+        display: flex;
+        justify-content: flex-end;
+    }
+    button.primary {
+        background: #0ea5e9;
+        color: #041322;
+        border: none;
+        padding: 11px 22px;
+        border-radius: 25px;
+        font-size: 14px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background 0.2s ease, transform 0.2s ease;
+    }
+    button.primary:hover { background: #0284c7; transform: translateY(-2px); }
+    button.primary:disabled {
+        background: #334155;
+        color: #64748b;
+        cursor: not-allowed;
+        transform: none;
+    }
+    .result-emoji { font-size: 52px; text-align: center; margin-bottom: 6px; }
+    .result-title { text-align: center; font-size: 22px; color: #f8fafc; margin: 0 0 6px; }
+    .result-sub { text-align: center; color: #94a3b8; font-size: 14px; margin-bottom: 20px; }
+    .rules-recap {
+        background: #0b1526;
+        border-radius: 10px;
+        padding: 14px 18px;
+        font-size: 14px;
+        line-height: 1.9;
+        color: #cbd5e1;
+        margin-bottom: 20px;
+    }
+    footer {
+        text-align: center;
+        font-size: 12px;
+        color: #475569;
+        margin-top: 20px;
+    }
+</style>
+</head>
+<body>
+<div class="app">
+    <header>
+        <h1>🛡️ Online Safety Quiz</h1>
+        <p>Safe or Scam? Read each question carefully and pick the safest choice!</p>
+    </header>
+
+    <div id="quizScreen">
+        <div class="score-line">
+            <span id="questionCounter">Question 1 of 12</span>
+            <span id="scoreCounter">Score: 0</span>
+        </div>
+        <div class="progress-wrap"><div class="progress-bar" id="progressBar"></div></div>
+
+        <div class="card">
+            <div class="badge" id="categoryBadge">Personal Info</div>
+            <p class="question-text" id="questionText"></p>
+            <div class="choices" id="choicesWrap"></div>
+            <div class="explanation" id="explanation"></div>
+            <div class="next-row">
+                <button class="primary" id="nextBtn" disabled onclick="nextQuestion()">Next ▶</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="resultScreen" style="display:none;">
+        <div class="card">
+            <div class="result-emoji" id="resultEmoji">🏆</div>
+            <p class="result-title" id="resultTitle">Safety Superhero!</p>
+            <p class="result-sub" id="resultSub">You scored 12 out of 12</p>
+            <div class="rules-recap">
+                ⭐ <strong>Remember the 5 Golden Rules:</strong><br>
+                🔒 Keep Personal Info Private<br>
+                🔑 Use Strong, Secret Passwords<br>
+                🤔 Think Before You Click<br>
+                💛 Be Kind Online, Report Unkindness<br>
+                🗣️ Tell a Trusted Adult
+            </div>
+            <div class="next-row" style="justify-content:center;">
+                <button class="primary" onclick="restartQuiz()">🔁 Play Again</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>Code Club Sri Lanka 🇱🇰 — Be Safe Online Workshop</footer>
+</div>
+
+<script>
+const QUESTIONS = [
+    {
+        category: "Personal Info",
+        question: "A gaming friend you've only ever chatted with online asks for your home address to \"send you a gift.\" What should you do?",
+        choices: [
+            "Send it — they seem nice and it's just a gift",
+            "Never share your address with someone you only know online, even if they seem friendly",
+            "Send a fake address instead",
+        ],
+        correct: 1,
+        explanation: "🔒 Golden Rule 1: Keep Personal Info Private. Anyone you've only met online is still a stranger, no matter how friendly they seem. Never share your home address with them."
+    },
+    {
+        category: "Passwords",
+        question: "Which of these is the STRONGEST password?",
+        choices: [
+            "password123",
+            "yourname2011",
+            "Tea!Cup_47Sunny",
+        ],
+        correct: 2,
+        explanation: "🔑 Golden Rule 2: A strong password is long, mixes letters/numbers/symbols, and isn't a real word or personal fact. \"Tea!Cup_47Sunny\" ticks every box!"
+    },
+    {
+        category: "Passwords",
+        question: "Your best friend asks for your social media password so they can \"check something quick.\" What should you do?",
+        choices: [
+            "Give it to them, they're my best friend",
+            "Never share your password with anyone — not even a best friend",
+            "Give them a slightly different password",
+        ],
+        correct: 1,
+        explanation: "🔑 Passwords are never meant to be shared, even with close friends. If they need something, log in yourself and help them instead."
+    },
+    {
+        category: "Scams & Phishing",
+        question: "You get this message:\n\n\"🎉 CONGRATULATIONS! You WON a free PS5! Click here within 10 minutes: bit.ly/free-ps5-claim. Enter your name, address and phone number!\"\n\nIs this safe?",
+        choices: [
+            "Safe — I should click fast before the offer ends!",
+            "It's a scam — urgency, a too-good-to-be-true prize, and asking for personal info are all red flags",
+            "Safe, but only if I don't enter my phone number",
+        ],
+        correct: 1,
+        explanation: "🤔 Golden Rule 3: This message has THREE major red flags: urgency (\"within 10 minutes\"), a too-good-to-be-true prize, and a request for personal information. Never click links like this."
+    },
+    {
+        category: "Scams & Phishing",
+        question: "Which website address looks the MOST suspicious?",
+        choices: [
+            "www.google.com",
+            "amaz0n-prizes-win.com",
+            "en.wikipedia.org",
+        ],
+        correct: 1,
+        explanation: "🤔 Scam sites often use misspelled brand names (like a zero instead of an \"o\") plus extra words like \"prizes-win\" to trick you. Always look closely at web addresses."
+    },
+    {
+        category: "Scams & Phishing",
+        question: "A pop-up says: \"WARNING! Your device has 3 viruses! Click here to download Free Cleaner App now!\" What should you do?",
+        choices: [
+            "Click it immediately to protect my device",
+            "Close the pop-up/browser without clicking anything, and tell an adult if unsure",
+            "Download the app just to check if it's real",
+        ],
+        correct: 1,
+        explanation: "🤔 Real security warnings don't work like scary pop-ups asking you to download random apps. This is a classic scam trick — close it without clicking and ask a trusted adult."
+    },
+    {
+        category: "Cyberbullying",
+        question: "Someone keeps sending you mean messages every time you lose a game. What's the best response using the T.H.I.N.K. test?",
+        choices: [
+            "Send an even meaner message back",
+            "Ignore them, block if needed, screenshot the messages, and tell a trusted adult",
+            "Share their mean messages with everyone to embarrass them",
+        ],
+        correct: 1,
+        explanation: "💛 Golden Rule 4: Don't fight back or spread it further — that just adds more unkindness. Block if needed, save evidence with a screenshot, and tell a trusted adult."
+    },
+    {
+        category: "Cyberbullying",
+        question: "A friend shares an embarrassing photo of a classmate in a group chat and asks you to forward it too. What should you do?",
+        choices: [
+            "Forward it — everyone else is doing it",
+            "Refuse to forward it, and tell a trusted adult",
+            "Forward it only to a few close friends",
+        ],
+        correct: 1,
+        explanation: "💛 Forwarding it would make you part of the cyberbullying, even if you didn't take the photo. The kind and safe choice is to refuse and tell a trusted adult."
+    },
+    {
+        category: "Stranger Danger",
+        question: "An online friend (who says they're your age) asks to video call, then asks to meet up in person this weekend without telling your parents. What should you do?",
+        choices: [
+            "Agree, but bring a friend along",
+            "Say no, and tell a trusted adult immediately — this is a major warning sign",
+            "Agree, since they seem nice and it's just once",
+        ],
+        correct: 1,
+        explanation: "🕵️ Asking to meet in person AND keep it secret from parents are two huge red flags. Never agree to meet an online-only contact without a trusted adult present — tell one right away."
+    },
+    {
+        category: "Personal Info",
+        question: "Before posting a photo from school, what should you check?",
+        choices: [
+            "Nothing, photos are always safe to post",
+            "Whether location tags are off, who can see the post, and what's visible in the background (school name, street signs)",
+            "Only whether the photo looks good",
+        ],
+        correct: 1,
+        explanation: "🔒 Photos can reveal your location or school even without you saying it out loud. Always check tags, visibility settings, and background details first."
+    },
+    {
+        category: "Golden Rule 5",
+        question: "You click a link and suddenly a scary message says your device is \"locked\" unless you pay money. What's the correct order of steps?",
+        choices: [
+            "TELL an adult, then STOP, then BLOCK",
+            "STOP (don't click/pay) → BLOCK/exit the page → TELL a trusted adult",
+            "Pay first, then tell an adult afterward",
+        ],
+        correct: 1,
+        explanation: "🗣️ Golden Rule 5: STOP → BLOCK → TELL. Never pay or click further. Close/exit the page, then tell a trusted adult right away — this is very likely a scam."
+    },
+    {
+        category: "Kindness Online",
+        question: "Using the T.H.I.N.K. test, which of these is safest to post about a classmate?",
+        choices: [
+            "An unkind rumor you're not sure is true",
+            "A kind, true, and necessary comment, like congratulating them on an achievement",
+            "An embarrassing photo they didn't agree to share",
+        ],
+        correct: 1,
+        explanation: "🧠 The T.H.I.N.K. test: is it True, Helpful, Inspiring, Necessary, and Kind? A genuine, kind comment passes every test — the other two options fail on truth, necessity, or kindness."
+    },
+];
+
+let currentIndex = 0;
+let score = 0;
+let answered = false;
+
+function loadQuestion() {
+    answered = false;
+    const q = QUESTIONS[currentIndex];
+    document.getElementById('questionCounter').textContent = `Question ${currentIndex + 1} of ${QUESTIONS.length}`;
+    document.getElementById('scoreCounter').textContent = `Score: ${score}`;
+    document.getElementById('progressBar').style.width = `${(currentIndex / QUESTIONS.length) * 100}%`;
+    document.getElementById('categoryBadge').textContent = q.category;
+    document.getElementById('questionText').textContent = q.question;
+
+    const wrap = document.getElementById('choicesWrap');
+    wrap.innerHTML = '';
+    q.choices.forEach((choiceText, i) => {
+        const btn = document.createElement('button');
+        btn.className = 'choice-btn';
+        btn.textContent = choiceText;
+        btn.onclick = () => selectAnswer(i);
+        wrap.appendChild(btn);
+    });
+
+    const explanationEl = document.getElementById('explanation');
+    explanationEl.className = 'explanation';
+    explanationEl.textContent = '';
+    document.getElementById('nextBtn').disabled = true;
+}
+
+function selectAnswer(choiceIndex) {
+    if (answered) return;
+    answered = true;
+    const q = QUESTIONS[currentIndex];
+    const buttons = document.querySelectorAll('.choice-btn');
+    buttons.forEach((btn, i) => {
+        btn.disabled = true;
+        if (i === q.correct) btn.classList.add('correct');
+        else if (i === choiceIndex) btn.classList.add('wrong');
+    });
+
+    if (choiceIndex === q.correct) {
+        score += 1;
+        document.getElementById('scoreCounter').textContent = `Score: ${score}`;
+    }
+
+    const explanationEl = document.getElementById('explanation');
+    explanationEl.textContent = q.explanation;
+    explanationEl.classList.add('show');
+
+    document.getElementById('nextBtn').disabled = false;
+}
+
+function nextQuestion() {
+    currentIndex += 1;
+    if (currentIndex >= QUESTIONS.length) {
+        showResults();
+    } else {
+        loadQuestion();
+    }
+}
+
+function showResults() {
+    document.getElementById('progressBar').style.width = '100%';
+    document.getElementById('quizScreen').style.display = 'none';
+    document.getElementById('resultScreen').style.display = 'block';
+
+    let emoji, title;
+    if (score === QUESTIONS.length) {
+        emoji = '🏆'; title = 'Safety Superhero!';
+    } else if (score >= Math.ceil(QUESTIONS.length * 0.7)) {
+        emoji = '🌟'; title = 'Safety Star!';
+    } else if (score >= Math.ceil(QUESTIONS.length * 0.4)) {
+        emoji = '👍'; title = 'Safety Rookie — Keep Learning!';
+    } else {
+        emoji = '📚'; title = 'Let\'s Review the Golden Rules Together!';
+    }
+
+    document.getElementById('resultEmoji').textContent = emoji;
+    document.getElementById('resultTitle').textContent = title;
+    document.getElementById('resultSub').textContent = `You scored ${score} out of ${QUESTIONS.length}`;
+}
+
+function restartQuiz() {
+    currentIndex = 0;
+    score = 0;
+    document.getElementById('resultScreen').style.display = 'none';
+    document.getElementById('quizScreen').style.display = 'block';
+    loadQuestion();
+}
+
+loadQuestion();
+</script>
+</body>
+</html>
