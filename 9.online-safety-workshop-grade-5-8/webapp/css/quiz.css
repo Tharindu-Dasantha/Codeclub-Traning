@@ -1,0 +1,154 @@
+/* ============================================================
+   Quiz — 12-question glass challenge
+   ============================================================ */
+
+.score-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.score-line .label {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ink-soft);
+}
+
+.score-line .score {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--ink-soft);
+  background: var(--glass-fill);
+  border: 1px solid var(--glass-border);
+  padding: 5px 12px;
+  border-radius: var(--radius-pill);
+}
+
+.q-category {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--accent);
+  background: rgba(110, 168, 255, 0.14);
+  border: 1px solid rgba(110, 168, 255, 0.32);
+  padding: 5px 13px;
+  border-radius: var(--radius-pill);
+  margin-bottom: 16px;
+}
+
+.q-text {
+  font-size: 18px;
+  line-height: 1.55;
+  color: var(--ink);
+  margin-bottom: 22px;
+  white-space: pre-wrap;
+}
+
+.choices {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.choice-btn {
+  text-align: left;
+  background: var(--glass-fill);
+  border: 1px solid var(--glass-border);
+  color: var(--ink);
+  padding: 15px 18px;
+  border-radius: var(--radius-md);
+  font-size: 15px;
+  line-height: 1.45;
+  cursor: pointer;
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  transition: border-color 0.2s ease, background 0.2s ease, transform 0.15s ease;
+}
+
+.choice-btn:hover:not(:disabled) { background: var(--glass-fill-strong); transform: translateX(3px); }
+.choice-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.choice-btn:disabled { cursor: default; }
+
+.choice-btn.correct {
+  background: var(--safe-fill);
+  border-color: var(--safe-border);
+  color: var(--safe);
+}
+
+.choice-btn.wrong {
+  background: var(--scam-fill);
+  border-color: var(--scam-border);
+  color: var(--scam);
+}
+
+.choice-btn.dim { opacity: 0.5; }
+
+.explanation {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition: grid-template-rows 0.4s cubic-bezier(0.32, 0.72, 0, 1), opacity 0.3s ease;
+}
+
+.explanation.open { grid-template-rows: 1fr; opacity: 1; margin-top: 18px; }
+.explanation > div { overflow: hidden; }
+
+.explanation-inner {
+  background: rgba(110, 168, 255, 0.12);
+  border: 1px solid rgba(110, 168, 255, 0.32);
+  border-radius: var(--radius-md);
+  padding: 16px 18px;
+  font-size: 14.5px;
+  line-height: 1.65;
+  color: var(--ink);
+}
+
+.step-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 24px;
+}
+
+.step-actions .btn { min-width: 130px; }
+
+/* ---------- Result screen ---------- */
+
+.result-card { text-align: center; padding: 44px 32px; }
+
+.result-emoji {
+  font-size: 52px;
+  margin-bottom: 8px;
+}
+
+.result-card h2 {
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  margin-bottom: 8px;
+}
+
+.result-card .sub {
+  font-size: 15px;
+  color: var(--ink-soft);
+  margin-bottom: 26px;
+}
+
+.rules-recap {
+  text-align: left;
+  background: var(--glass-fill);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md);
+  padding: 18px 22px;
+  font-size: 14.5px;
+  line-height: 2;
+  color: var(--ink);
+  margin-bottom: 26px;
+}
+
+.result-card .btn-row {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
