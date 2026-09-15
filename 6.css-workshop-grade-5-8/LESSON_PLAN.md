@@ -15,7 +15,7 @@
 | **00:15 - 00:40** | 25 min | **Module 2: Colors & Fonts Mastery** | Named colors vs Hex codes (`#ff5722`), `color`, `background-color`, `font-family`, `font-size`, `text-align` |
 | **00:40 - 01:10** | 30 min | **Module 3: The Box Model & Hover Animations** | Margins, Padding, Borders, `border-radius`, `box-shadow`, Interactive `:hover` & `transition` magic |
 | **01:10 - 01:20** | 10 min | **☕ Energy Break & Color Quiz** | "Color Pose" Physical Energizer & 5-question rapid fire pop quiz |
-| **01:20 - 01:50** | 30 min | **Module 4: Hands-on Code Challenge & Project** | CSS Bug Hunt Challenge & "Styling My Sri Lankan Explorer Card" Project |
+| **01:20 - 01:50** | 30 min | **Module 4: Hands-on Code Challenge & Project** | CSS Bug Hunt Challenge & "Styling My Scratch Maze Game Showcase" Project |
 | **01:50 - 02:00** | 10 min | **Module 5: Showcase & Wrap-up** | Peer Showcase, Best Design Awards, Recap & What's Next (JavaScript Teaser) |
 
 ---
@@ -26,6 +26,12 @@
 
 #### Objective:
 Inspire students by showing how plain black-and-white text turns into a stunning, modern website with CSS.
+
+#### Step 0: Reconnect With Last Session's Project (2 mins)
+- Ask: *"Who still has the `index.html` file you saved last session?"*
+- **Students with their own file:** Have them open it — that's exactly what we'll style today!
+- **Students who missed Session 1 or lost their file:** Give them `starter-kit/index.html` — it has the identical maze game showcase content, so they won't miss out.
+- Optional: students with their own file can copy their personalized game name/story/screenshot into `starter-kit/index.html` if they'd like the same class hooks as everyone else for today's guided steps.
 
 #### Facilitator Script & Steps:
 1. **The Hook - "The 1-Second Transformation":**
@@ -195,14 +201,14 @@ Challenge: *"Detective Codey broke the styles! Find and fix 5 CSS bugs!"*
 - Bug 4: Using curly braces `{}` incorrectly or missing closing `}`.
 - Bug 5: Forgot hashtag `#` on Hex color (`ff5722` instead of `#ff5722`).
 
-#### Step 2: Main Project — "Styling My Sri Lankan Explorer Page"
-Students open `starter-kit/index.html` and `starter-kit/style.css` to build a modern card-layout website with:
-- [x] Custom color palette (Background, Headings, Accent colors).
-- [x] Styled navigation header & centered title.
-- [x] Rounded profile image with `border-radius: 50%` and border shadow.
+#### Step 2: Main Project — "Styling My Scratch Maze Game Showcase"
+Students open their own `index.html` (or `starter-kit/index.html`) alongside `starter-kit/style.css` to build a modern card-layout website with:
+- [x] Custom color palette (Background, Headings, Accent colors) — try a jungle/game-themed palette!
+- [x] Styled navigation header & centered game title.
+- [x] Rounded game screenshot with `border-radius: 50%` (or try a rectangle with rounded corners) and border shadow.
 - [x] Card layout using `padding`, `margin`, `border-radius`, and `box-shadow`.
-- [x] Interactive hover effects (`:hover` scale/lift) on cards and buttons.
-- [x] Styled lists (`ul`/`ol`) with custom bullet colors or padding.
+- [x] Interactive hover effects (`:hover` scale/lift) on cards and the "Play" button.
+- [x] Styled How to Play (`ul`) and Levels (`ol`) lists with custom bullet colors or padding.
 
 ---
 

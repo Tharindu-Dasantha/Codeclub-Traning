@@ -48,9 +48,11 @@ card {
 
 ---
 
-## 🚀 Activity 2: Main Project — "Styling My Sri Lankan Explorer Webpage"
+## 🚀 Activity 2: Main Project — "Styling My Scratch Maze Game Showcase"
 
-Your mission: Transform a plain HTML webpage into a modern, vibrant web page using CSS styling!
+Your mission: Transform your plain HTML maze game showcase page into a modern, vibrant web page using CSS styling!
+
+> 👋 **Reconnect first:** Open the `index.html` file you saved last session. If you weren't there (or lost your file), use `starter-kit/index.html` instead — it has the same content, ready to style.
 
 ### 📋 Checklist & Requirements:
 
@@ -64,10 +66,10 @@ Your mission: Transform a plain HTML webpage into a modern, vibrant web page usi
   - Style your main title (`h1`) with a bold color, larger `font-size`, and `text-align: center;`.
   - Add a colored line under section headings (`h2 { border-bottom: 3px solid ...; }`).
 
-- [ ] **Level 3: Circle Profile Picture**
-  - Style your profile image using `img` or `.avatar` selector:
+- [ ] **Level 3: Style Your Game Screenshot**
+  - Style your screenshot image using the `img` or `.avatar` selector:
     - Set `width: 140px;` and `height: 140px;`.
-    - Turn it into a circle using `border-radius: 50%;`.
+    - Turn it into a circle using `border-radius: 50%;` (or try a smaller radius for a rounded rectangle look).
     - Add a colored border: `border: 4px solid #0284c7;`.
 
 - [ ] **Level 4: Modern Card Box Layout**
@@ -82,7 +84,7 @@ Your mission: Transform a plain HTML webpage into a modern, vibrant web page usi
 - [ ] **Level 5: Interactive Hover Magic**
   - Add a smooth transition to your card: `transition: transform 0.3s ease;`.
   - Add hover effect: `.card:hover { transform: translateY(-8px); }`.
-  - Style a button (`.btn`) with padding, rounded pill corners (`border-radius: 25px`), and a cool hover color change!
+  - Style your "Play the Game" button (`.btn`) with padding, rounded pill corners (`border-radius: 25px`), and a cool hover color change!
 
 ---
 
@@ -91,7 +93,7 @@ Your mission: Transform a plain HTML webpage into a modern, vibrant web page usi
 Finished Activity 2 already? Level up your styling powers with these Boss Quests!
 
 ### ⚡ Quest A: Glowing Gradient Backgrounds (`linear-gradient`)
-Instead of a flat background color, give your hero section a glowing Sri Lankan sunset gradient!
+Instead of a flat background color, give your hero section a glowing jungle-at-dusk gradient!
 ```css
 body {
     background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);

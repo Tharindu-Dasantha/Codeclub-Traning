@@ -68,7 +68,7 @@ h1 {
 }
 
 /* ------------------------------------------------------
-   STEP 4: AVATAR / PROFILE PICTURE STYLING
+   STEP 4: GAME SCREENSHOT STYLING
    ------------------------------------------------------ */
 .avatar {
     /* TODO: Set width and height to 120px */
@@ -101,6 +101,12 @@ h1 {
     font-weight: bold;
     display: inline-block;
     margin-right: 8px;
+}
+
+/* TODO: Style the "How to Play" and "Levels" list items */
+.controls-list li,
+.levels-list li {
+    margin-bottom: 8px;
 }
 
 /* Button style */

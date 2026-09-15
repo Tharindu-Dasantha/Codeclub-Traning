@@ -8,7 +8,7 @@
 - **Title:** 🎨 CSS Styling Magic — Paint & Style the Web!
 - **Subtitle:** Give your HTML skeleton an epic outfit & vibrant colors! 🚀
 - **Visual:** Code Club Sri Lanka Logo + Emojis 🇱🇰🎨💻
-- **Facilitator Script:** *"Ayubowan coders! Last time we learned how to build HTML skeletons. Today, we become digital artists and fashion designers for the web!"*
+- **Facilitator Script:** *"Ayubowan coders! Last time we built HTML skeletons for our Scratch maze game showcase pages. Today, we become digital artists and fashion designers for the web — and give that exact page a glow-up!"*
 
 ---
 
@@ -133,8 +133,8 @@
 ---
 
 ## 🖥️ Slide 11: 🚀 Project Build Time!
-- **Project:** "Styling My Sri Lankan Explorer Page"
-- Open `starter-kit/index.html` and `starter-kit/style.css` (or `interactive-demo/playground.html`).
+- **Project:** "Styling My Scratch Maze Game Showcase"
+- Open **your own `index.html` from last session** (or `starter-kit/index.html` if you weren't there) and `starter-kit/style.css` (or `interactive-demo/playground.html`).
 - **Remember the 3 Steps:**
   1. Type CSS code ⌨️
   2. Save file (`Ctrl+S`) 💾

@@ -12,7 +12,11 @@ Welcome to **CSS Styling Magic**! This 2-hour interactive workshop is designed s
 
 While HTML builds the skeleton of a webpage, **CSS (Cascading Style Sheets)** brings it to life with vibrant colors, custom fonts, rounded cards, shadows, and interactive hover animations. 
 
-Through engaging analogies (like painting a house or choosing a fashion outfit), gamified bug hunting, live styling demonstrations, and a hands-on project (*Styling My Sri Lankan Explorer Page*), students learn how to make plain HTML look like a professional, modern website.
+Through engaging analogies (like painting a house or choosing a fashion outfit), gamified bug hunting, live styling demonstrations, and a hands-on project, students learn how to make plain HTML look like a professional, modern website.
+
+🔗 **Connected to Session 1 (HTML):** This session picks up exactly where the HTML workshop left off. Students **reopen the `index.html` file they built and saved last session** — a showcase page for the Scratch maze game they created at Code Club — and give it a full CSS glow-up (*Styling My Scratch Maze Game Showcase*).
+
+📌 **Missed Session 1, or lost your file?** No problem! `starter-kit/index.html` already contains the same maze-game-showcase content with all the class hooks in place, so every student can style along regardless of whether they attended the HTML session.
 
 ---
 
@@ -28,7 +32,9 @@ css-workshop-grade-5-8/
 ├── ACTIVITIES.md               👈 Step-by-step student activities, Bug Hunt challenge & Boss Quests
 ├── SLIDES.md                   👈 Slide-by-slide presentation script for projector projection
 ├── starter-kit/
-│   ├── index.html              👈 Unstyled starter HTML page with class/ID hooks
+│   ├── index.html              👈 Unstyled maze game showcase page with class/ID hooks
+│   │                              (same content as the Session 1 project — use as a
+│   │                               drop-in replacement if a student missed Session 1)
 │   └── style.css               👈 Guided starter stylesheet with comments for students
 ├── solution-kit/
 │   ├── index.html              👈 Fully structured, production-ready solution HTML
@@ -73,10 +79,12 @@ By the end of this 2-hour session, students will be able to:
    - Copy `starter-kit/` and `interactive-demo/` onto student machines or USB sticks.
    - Open `interactive-demo/playground.html` in Google Chrome to confirm offline functionality.
    - Review `LESSON_PLAN.md` for timing benchmarks.
+   - Remind returning students to bring back their saved `index.html` from Session 1 (USB drive/email)!
 2. **During Class:**
+   - **Reconnect (5 mins):** Students who have their own `index.html` from Session 1 open it. Everyone else copies `starter-kit/index.html` instead — it's the same maze game showcase content, ready to style.
    - Follow the 120-minute timeline in `LESSON_PLAN.md`.
    - Project `SLIDES.md` on the main screen for visual explanation.
-   - Facilitate Activity 1 (CSS Bug Hunt) and Activity 2 (Styling Explorer Page) from `ACTIVITIES.md`.
+   - Facilitate Activity 1 (CSS Bug Hunt) and Activity 2 (Styling My Scratch Maze Game Showcase) from `ACTIVITIES.md`.
 3. **After Class:**
    - Encourage students to show their colorful styled pages to classmates and parents!
 

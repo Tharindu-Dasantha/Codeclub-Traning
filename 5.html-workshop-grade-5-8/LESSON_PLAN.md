@@ -15,7 +15,7 @@
 | **00:15 - 00:40** | 25 min | **Module 2: Building the Skeleton** | `<!DOCTYPE>`, `<html>`, `<head>`, `<body>`, Headings & Paragraphs |
 | **00:40 - 01:10** | 30 min | **Module 3: Media, Links & Lists** | Lists (`<ul>`/`<ol>`), Images (`<img>`), Links (`<a>`), Self-closing tags |
 | **01:10 - 01:20** | 10 min | **☕ Energy Break & Quiz** | Quick movement break & 5-question oral pop quiz |
-| **01:20 - 01:50** | 30 min | **Module 4: Hands-on Code Challenge** | Bug Hunt Challenge & "My Sri Lankan Explorer Page" Project |
+| **01:20 - 01:50** | 30 min | **Module 4: Hands-on Code Challenge** | Bug Hunt Challenge & "My Scratch Maze Game Showcase" Project |
 | **01:50 - 02:00** | 10 min | **Module 5: Showcase & Wrap-up** | Peer Show & Tell, Recap, What's Next (CSS Teaser) |
 
 ---
@@ -155,28 +155,32 @@ Challenge: *"Find and fix 5 intentional bugs!"*
 - Bug 4: Unclosed `<b>` tag swallowing paragraph text.
 - Bug 5: Missing quotes in `href`.
 
-#### Step 2: Main Project - "My Sri Lankan Adventure & Hobby Webpage"
-Students open `starter-kit/index.html` and customize their own personal webpage incorporating:
-- [x] Main Title (`<h1>`) with their name.
-- [x] Profile introduction (`<p>`, `<b>`, `<i>`).
-- [x] Bulleted list of favorite places in Sri Lanka (Sigiriya, Ella, Galle Fort, Yala).
-- [x] Numbered list of favorite subjects or games.
-- [x] At least 1 image with `alt` description and specified `width`.
-- [x] At least 1 working link (`<a>`).
+#### Step 2: Main Project - "My Scratch Maze Game Showcase Page"
+Students open `starter-kit/index.html` and build a page that shows off the Scratch maze game they created at Code Club, incorporating:
+- [x] Main Title (`<h1>`) with their game's name.
+- [x] Creator introduction (`<p>`, `<b>`, `<i>`) — their name and grade.
+- [x] "About My Game" paragraph describing the maze story (character, obstacle, goal).
+- [x] Numbered list (`<ol>`) explaining How to Play (controls, rules, how to win).
+- [x] Bulleted list (`<ul>`) of Cool Features (3+ things about their game).
+- [x] At least 1 image (a screenshot of their game) with `alt` description and specified `width`.
+- [x] At least 1 working link (`<a>`) to Scratch or Code Club Sri Lanka.
 - [x] Optional Bonus: Horizontal line dividers (`<hr>`) and highlighted text (`<mark>`).
+
+⚠️ **Facilitator Reminder:** At the end of this step, tell students to **save `index.html` and keep it** (USB drive, school folder, or emailed to themselves) — they'll reopen this exact file in the CSS Styling session next!
 
 ---
 
 ### 🌟 Module 5: Showcase & Wrap-up (01:50 - 02:00)
 
 1. **Peer Showcase (5 mins):**
-   - Students turn to their neighbor, hit `F5` refresh, and present their creation for 60 seconds each!
+   - Students turn to their neighbor, hit `F5` refresh, and present their maze game showcase page for 60 seconds each!
 2. **Facilitator Highlight (3 mins):**
    - Pick 2-3 enthusiastic students to project their webpage on the big screen. Point out great tag usage!
 3. **Closing Recap & What's Next (2 mins):**
-   - Review: You built a real webpage today!
-   - Teaser for Session 2: *"Next week, we add CSS to make our text glow, add colors, and create cool card layouts!"*
+   - Review: You built a real webpage that shows off your own Scratch game today!
+   - Teaser for Session 2: *"Next week, bring back this exact `index.html` file — we'll add CSS to make it glow, add colors, and turn it into a cool card layout showcasing your game!"*
 4. **Certificate / Sticker Handout:** Award "HTML Web Explorer" badges/stickers.
+5. **Final Reminder:** Make sure every student has saved a copy of `index.html` they can bring to the next session!
 
 ---
 

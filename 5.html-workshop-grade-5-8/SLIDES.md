@@ -115,7 +115,7 @@
 ---
 
 ## 🖥️ Slide 10: 🚀 Build Time!
-- **Project:** "My Sri Lankan Explorer Webpage"
+- **Project:** "My Scratch Maze Game Showcase Page"
 - Open `starter-kit/index.html` or `interactive-demo/playground.html`.
 - **Remember:**
   1. Type your code ⌨️
@@ -126,5 +126,6 @@
 
 ## 🖥️ Slide 11: Showcase & High Fives!
 - Turn to your neighbor! 🤝
-- Show off your website!
-- **What's Next?** Next session: **CSS Styling Magic!** 🎨✨
+- Show off your maze game showcase page!
+- 💾 **Save `index.html` and keep it!** You'll reopen this exact file next time.
+- **What's Next?** Next session: **CSS Styling Magic!** We'll style THIS page! 🎨✨

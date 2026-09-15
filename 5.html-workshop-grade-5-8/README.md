@@ -10,7 +10,9 @@
 
 Welcome to the **HTML Web Building Adventure**! This 2-hour interactive session is designed specifically for Sri Lankan Grade 5-8 students joining Code Club. 
 
-Through relatable analogies (like building a house or an elephant's body structure), gamified bug-hunting, live code building, and a personalized website project (e.g., *My Sri Lanka Wildlife & Hobby Page*), students will transition from passive web consumers to active creators.
+Through relatable analogies (like building a house or an elephant's body structure), gamified bug-hunting, live code building, and a personalized project, students will transition from passive web consumers to active creators.
+
+🔗 **Connected to Session 2 (CSS):** This session's project is a **Scratch Maze Game Showcase Page** — students build an HTML page presenting the maze game they created earlier at Code Club (story, how to play, screenshot, and links). They **save and keep this exact file**, because in the next session (*CSS Styling Magic*) they reopen it and give it a full visual glow-up. Make sure students leave with a copy of their `index.html`!
 
 ---
 
@@ -28,8 +30,8 @@ html-workshop-grade-5-8/
 ├── starter-kit/
 │   └── index.html              👈 Starter file with guided comments for student activities
 ├── solution-kit/
-│   ├── index.html              👈 Completed example webpage ("My Sri Lankan Adventure")
-│   └── style.css               👈 Modern styles for the completed webpage
+│   ├── index.html              👈 Completed example webpage ("Jungle Maze Escape" showcase)
+│   └── style.css               👈 Modern styles previewing next session's CSS glow-up
 └── interactive-demo/
     └── playground.html         👈 Zero-setup interactive browser playground (Code & Live View)
 ```
@@ -44,7 +46,7 @@ By the end of this 2-hour session, students will be able to:
 3. Understand the basic skeleton structure of an HTML document (`<!DOCTYPE html>`, `<html>`, `<head>`, `<body>`).
 4. Construct hyperlinks to external pages and embed images safely.
 5. Identify and fix common syntax errors (missing closing tags, broken attributes) in a fun "Bug Hunt" challenge.
-6. Build and customize their own personal profile/hobby webpage.
+6. Build and customize a webpage that showcases the Scratch maze game they created at Code Club.
 
 ---
 
@@ -72,9 +74,10 @@ By the end of this 2-hour session, students will be able to:
 2. **During Class:**
    - Follow the timeline in `LESSON_PLAN.md`.
    - Use `SLIDES.md` for screen projection.
-   - Run Activity 1 (Bug Hunt) and Activity 2 (My Sri Lankan Explorer Page) from `ACTIVITIES.md`.
+   - Run Activity 1 (Bug Hunt) and Activity 2 (My Scratch Maze Game Showcase) from `ACTIVITIES.md`.
 3. **After Class:**
    - Encourage students to show their saved `.html` files to parents and friends by double-clicking them!
+   - ⚠️ **Important:** Remind every student to save `index.html` somewhere they can retrieve it (USB drive, school computer folder, or emailed to themselves). They will open this exact file again next session to style it with CSS!
 
 ---
 
