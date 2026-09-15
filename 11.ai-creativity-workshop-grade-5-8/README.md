@@ -24,10 +24,11 @@ ai-creativity-workshop-grade-5-8/
 ├── LESSON_PLAN.md              👈 Detailed 120-minute facilitator step-by-step guide
 ├── STUDENT_CHEATSHEET.md       👈 Printable 1-page prompting, vibe-coding & AI ethics cheatsheet
 ├── ACTIVITIES.md               👈 Prompt-writing practice, Phase 2 website upgrade checklist & Boss Quests
-└── SLIDES.md                   👈 Slide-by-slide presentation script for projector projection
+├── SLIDES.md                   👈 Slide-by-slide presentation script for projector projection
+└── starter-kit/                👈 "Phase 1" fallback baseline (simple index.html + style.css)
 ```
 
-> **Note:** This workshop has no `starter-kit/`/`solution-kit/` — AI-generated results are different every time by design, so there's no single "correct" output to hand out. Instead, students upgrade the **website they already built** in the HTML/CSS workshops. If a student can't find their original files, use [`css-workshop-grade-5-8/solution-kit/`](../css-workshop-grade-5-8/solution-kit/) as a starting "Phase 1" baseline.
+> **Note:** This workshop has no `solution-kit/` — AI-generated results are different every time by design, so there's no single "correct" output to hand out. Instead, students upgrade the **website they already built** in the HTML/CSS workshops. If a student can't find their original files (e.g. they missed the HTML/CSS sessions), use this session's own [`starter-kit/`](starter-kit/) as a "Phase 1" baseline — it's the same page as [`css-workshop-grade-5-8/starter-kit/`](../css-workshop-grade-5-8/starter-kit/), given a simple starter design so there's plenty of obvious room left for vibe-coding upgrades.
 
 ---
 
@@ -47,7 +48,7 @@ By the end of this 2-hour session, students will be able to:
 
 ### For Students:
 * Desktop/Laptop with a modern web browser.
-* Their saved website files from the HTML/CSS workshops (or the fallback baseline noted above).
+* Their saved website files from the HTML/CSS workshops (or this session's [`starter-kit/`](starter-kit/) fallback baseline noted above).
 * A text editor (VS Code, Notepad++, or whatever was used in the HTML/CSS sessions).
 
 ### For Instructor / Facilitator — ⚠️ Please Read Before Class:

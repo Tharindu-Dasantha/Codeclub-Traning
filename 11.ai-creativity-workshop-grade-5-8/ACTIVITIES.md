@@ -41,7 +41,7 @@ Your mission: use **vibe coding** to make real, working, understood improvements
 ### 📋 Checklist & Requirements:
 
 - [ ] **Level 1: Open Your Project**
-  - Open your website files from the HTML/CSS workshops (or the fallback baseline at `css-workshop-grade-5-8/solution-kit/` if needed).
+  - Open your website files from the HTML/CSS workshops (or the fallback baseline in this session's [`starter-kit/`](starter-kit/) folder if needed).
 
 - [ ] **Level 2: Describe Your First Improvement**
   - Pick ONE specific thing to improve — not "make it better," but something concrete, e.g.:
