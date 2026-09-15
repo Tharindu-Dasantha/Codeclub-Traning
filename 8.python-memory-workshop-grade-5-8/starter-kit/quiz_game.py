@@ -1,4 +1,3 @@
-# 🎯 Sri Lankan Trivia Quiz Master - STARTER FILE (Session 2: Lists, Functions & Files)
 # Build on what you made in Session 1! This time we organize our quiz using
 # LISTS, DICTIONARIES, FUNCTIONS, and save the high score to a FILE.
 

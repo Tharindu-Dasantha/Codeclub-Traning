@@ -1,7 +1,3 @@
-# 🎯 Sri Lankan Trivia Quiz Game - STARTER FILE
-# Fill in the TODOs to build your quiz game!
-# Run this file in Thonny by pressing the green Run button (or F5).
-
 print("=" * 40)
 print("🏆 WELCOME TO THE SRI LANKAN TRIVIA QUIZ! 🏆")
 print("=" * 40)
@@ -55,4 +51,3 @@ print("\n" + "=" * 40)
 
 # ---------------- BOSS QUEST (optional) ----------------
 # TODO 9 (Bonus): Wrap this whole quiz in a while loop so the player
-#         can type "yes" to play again! See ACTIVITIES.md Level 5 for hints.
